@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Creador de presupuestos profesional para trabajadores independientes.">
+  <title>PresuSimple — Generador de presupuestos</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231b3a57'/%3E%3Cpath d='M19 16h20l8 8v24H19z' fill='%23fff'/%3E%3Cpath d='M39 16v9h8' fill='none' stroke='%23ffb657' stroke-width='4'/%3E%3Cpath d='M25 32h16M25 39h13' stroke='%231b3a57' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#172436;--navy:#1b3a57;--blue:#245a7a;--paper:#fff;--bg:#eef4f6;--line:#d8e2e7;--muted:#617181;--accent:#ffb657;--danger:#a53838;--shadow:0 18px 50px rgba(23,36,54,.12)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5}
+    button,input,textarea,select{font:inherit} button{cursor:pointer}
+    .topbar{background:var(--navy);color:#fff;padding:18px 0}.topbar-inner,.layout{width:min(1180px,calc(100% - 32px));margin:auto}.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.2rem;letter-spacing:-.02em}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--accent);color:var(--navy);font-weight:900}.status{font-size:.875rem;color:#d9e7ef}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:24px;padding:28px 0 48px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.editor{padding:28px}.preview-wrap{position:relative}.preview{position:sticky;top:20px;padding:24px}
+    h1{margin:0 0 6px;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.15;letter-spacing:-.04em} .intro{margin:0 0 26px;color:var(--muted)} h2{font-size:1rem;margin:28px 0 14px;display:flex;align-items:center;gap:10px}.step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#dceaf0;color:var(--navy);font-size:.78rem}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1} label{font-weight:700;font-size:.875rem} input,textarea,select{width:100%;border:1px solid #cbd8de;border-radius:10px;padding:11px 12px;background:#fbfdfe;color:var(--ink);outline:none} input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(36,90,122,.13)} textarea{min-height:80px;resize:vertical}
+    .items{display:flex;flex-direction:column;gap:10px}.item{display:grid;grid-template-columns:minmax(130px,1fr) 72px 120px 38px;gap:8px;align-items:end;padding:12px;background:#f5f9fa;border:1px solid var(--line);border-radius:12px}.item label{font-size:.75rem;color:var(--muted)}.icon-btn{height:43px;border:0;border-radius:9px;background:#fdecec;color:var(--danger);font-size:1.2rem}.add-btn{margin-top:10px;border:1px dashed var(--blue);background:#f5fafc;color:var(--blue);border-radius:10px;padding:10px 14px;font-weight:800}.totals-editor{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.primary,.secondary{border:0;border-radius:11px;padding:12px 18px;font-weight:800}.primary{background:var(--navy);color:#fff}.secondary{background:#e6eef2;color:var(--navy)}.primary:hover{background:#244b6b}.secondary:hover{background:#d8e5ea}
+    .doc{background:#fff;border:1px solid var(--line);min-height:530px;padding:28px;box-shadow:0 10px 24px rgba(23,36,54,.09)}.doc-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--navy);padding-bottom:18px;margin-bottom:20px}.doc-brand{font-size:1.25rem;font-weight:900;color:var(--navy)}.doc-title{text-align:right}.doc-title strong{display:block;font-size:1.2rem}.doc-title span{font-size:.8rem;color:var(--muted)}.to{font-size:.85rem;margin-bottom:20px}.to strong{display:block;font-size:1rem}.doc table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.69rem}.doc th{background:var(--navy);color:#fff;text-align:left;padding:8px 5px}.doc td{padding:9px 5px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.doc th:first-child{width:40%}.doc th:nth-child(2){width:12%}.doc th:nth-child(3),.doc th:nth-child(4){width:24%}.doc th:nth-child(n+2),.doc td:nth-child(n+2){text-align:right;white-space:nowrap}.doc-totals{margin:16px 0 0 auto;width:70%;font-size:.82rem}.doc-total-row{display:flex;justify-content:space-between;gap:12px;padding:4px 0}.doc-total-row span:last-child{white-space:nowrap}.doc-total-row.grand{border-top:2px solid var(--navy);font-weight:900;font-size:1rem;margin-top:5px;padding-top:8px}.doc-notes{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);white-space:pre-wrap;font-size:.78rem;color:var(--muted)}.empty{color:var(--muted);font-style:italic}.hint{font-size:.78rem;color:var(--muted);margin:10px 0 0}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.preview{position:static}.preview-wrap{order:-1}.doc{min-height:auto}.status{display:none}}
+    @media(max-width:560px){.topbar-inner,.layout{width:min(100% - 20px,1180px)}.editor,.preview{padding:18px}.grid,.totals-editor{grid-template-columns:1fr}.field.full{grid-column:auto}.item{grid-template-columns:1fr 70px}.item .price{grid-column:1/2}.item .icon-btn{grid-column:2/3}.doc{padding:18px}.doc-head{gap:12px}.doc-totals{width:100%}}
+    @media print{body{background:#fff}.topbar,.editor,.preview>h1,.preview>.intro{display:none!important}.layout{display:block;width:100%;padding:0}.preview{padding:0}.card{border:0;box-shadow:none}.doc{border:0;box-shadow:none;min-height:auto}.preview-wrap{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><div class="brand"><span class="brand-mark">P</span>PresuSimple</div><div class="status">Los datos se guardan solamente en este dispositivo</div></div></header>
+  <main class="layout">
+    <section class="card editor" aria-labelledby="editor-title">
+      <h1 id="editor-title">Creá un presupuesto claro</h1>
+      <p class="intro">Completá los datos y revisá el resultado en tiempo real.</p>
+      <h2><span class="step">1</span>Datos principales</h2>
+      <div class="grid">
+        <div class="field"><label for="business">Tu nombre o negocio</label><input id="business" value="Estudio Norte"></div>
+        <div class="field"><label for="quote">Número</label><input id="quote" value="P-001"></div>
+        <div class="field"><label for="client">Cliente</label><input id="client" placeholder="Nombre del cliente"></div>
+        <div class="field"><label for="date">Fecha</label><input id="date" type="date"></div>
+      </div>
+      <h2><span class="step">2</span>Servicios</h2>
+      <div id="items" class="items"></div>
+      <button class="add-btn" id="addItem" type="button">+ Agregar servicio</button>
+      <div class="totals-editor">
+        <div class="field"><label for="discount">Descuento (%)</label><input id="discount" type="number" min="0" max="100" value="0"></div>
+        <div class="field"><label for="tax">Impuestos (%)</label><input id="tax" type="number" min="0" max="100" value="0"></div>
+      </div>
+      <h2><span class="step">3</span>Condiciones</h2>
+      <div class="field"><label for="notes">Notas para el cliente</label><textarea id="notes">Validez del presupuesto: 15 días.
+Forma de pago: 50% al iniciar y 50% contra entrega.</textarea></div>
+      <div class="actions"><button class="primary" id="print" type="button">Imprimir o guardar en PDF</button><button class="secondary" id="reset" type="button">Nuevo presupuesto</button></div>
+      <p class="hint">Para descargarlo como PDF, elegí “Guardar como PDF” en la ventana de impresión.</p>
+    </section>
+    <aside class="preview-wrap" aria-label="Vista previa del presupuesto">
+      <section class="card preview">
+        <div class="doc" id="document">
+          <div class="doc-head"><div class="doc-brand" id="pBusiness">Estudio Norte</div><div class="doc-title"><strong>PRESUPUESTO</strong><span id="pMeta">P-001 · —</span></div></div>
+          <div class="to">Preparado para<strong id="pClient">Cliente sin especificar</strong></div>
+          <table><thead><tr><th>Descripción</th><th>Cant.</th><th>Precio</th><th>Total</th></tr></thead><tbody id="pItems"></tbody></table>
+          <div class="doc-totals"><div class="doc-total-row"><span>Subtotal</span><span id="pSubtotal">$ 0</span></div><div class="doc-total-row"><span>Descuento</span><span id="pDiscount">− $ 0</span></div><div class="doc-total-row"><span>Impuestos</span><span id="pTax">$ 0</span></div><div class="doc-total-row grand"><span>Total</span><span id="pTotal">$ 0</span></div></div>
+          <div class="doc-notes" id="pNotes"></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+  <script>
+    const $=s=>document.querySelector(s); const itemsEl=$('#items');
+    const money=new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',minimumFractionDigits:0,maximumFractionDigits:0});
+    const saved=()=>{try{return JSON.parse(localStorage.getItem('presusimple')||'null')}catch{return null}};
+    let items=(saved()?.items)||[{description:'Diseño y desarrollo de sitio web',quantity:1,price:180000},{description:'Configuración y publicación',quantity:1,price:45000}];
+    const ids=['business','quote','client','date','discount','tax','notes'];
+    function field(label,type='text',cls=''){const box=document.createElement('div');box.className='field '+cls;box.innerHTML=`<label>${label}</label><input type="${type}">`;return box}
+    function drawItems(){itemsEl.innerHTML='';items.forEach((item,index)=>{const row=document.createElement('div');row.className='item';const desc=field('Descripción');const qty=field('Cantidad','number');const price=field('Precio unitario','number','price');desc.querySelector('input').value=item.description;qty.querySelector('input').value=item.quantity;qty.querySelector('input').min='1';price.querySelector('input').value=item.price;price.querySelector('input').min='0';const del=document.createElement('button');del.type='button';del.className='icon-btn';del.setAttribute('aria-label','Eliminar servicio');del.textContent='×';desc.querySelector('input').oninput=e=>{items[index].description=e.target.value;update()};qty.querySelector('input').oninput=e=>{items[index].quantity=Number(e.target.value)||0;update()};price.querySelector('input').oninput=e=>{items[index].price=Number(e.target.value)||0;update()};del.onclick=()=>{items.splice(index,1);drawItems();update()};row.append(desc,qty,price,del);itemsEl.append(row)})}
+    function val(id){return $('#'+id).value} function num(id){return Number(val(id))||0}
+    function update(){const date=val('date')?new Date(val('date')+'T12:00:00').toLocaleDateString('es-AR'):'—';$('#pBusiness').textContent=val('business')||'Tu negocio';$('#pMeta').textContent=`${val('quote')||'Sin número'} · ${date}`;$('#pClient').textContent=val('client')||'Cliente sin especificar';const body=$('#pItems');body.innerHTML='';if(!items.length){body.innerHTML='<tr><td colspan="4" class="empty">Sin servicios cargados</td></tr>'}items.forEach(i=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${escapeHtml(i.description||'Servicio')}</td><td>${i.quantity}</td><td>${money.format(i.price)}</td><td>${money.format(i.quantity*i.price)}</td>`;body.append(tr)});const subtotal=items.reduce((a,i)=>a+i.quantity*i.price,0);const discount=subtotal*num('discount')/100;const taxed=subtotal-discount;const tax=taxed*num('tax')/100;$('#pSubtotal').textContent=money.format(subtotal);$('#pDiscount').textContent='− '+money.format(discount);$('#pTax').textContent=money.format(tax);$('#pTotal').textContent=money.format(taxed+tax);$('#pNotes').textContent=val('notes');localStorage.setItem('presusimple',JSON.stringify({items,...Object.fromEntries(ids.map(id=>[id,val(id)]))}))}
+    function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    const state=saved();if(state)ids.forEach(id=>{if(state[id]!=null)$('#'+id).value=state[id]});if(!val('date'))$('#date').value=new Date().toISOString().slice(0,10);ids.forEach(id=>$('#'+id).addEventListener('input',update));$('#addItem').onclick=()=>{items.push({description:'Nuevo servicio',quantity:1,price:0});drawItems();update()};$('#print').onclick=()=>window.print();$('#reset').onclick=()=>{if(!confirm('¿Querés comenzar un presupuesto nuevo?'))return;localStorage.removeItem('presusimple');items=[{description:'Servicio profesional',quantity:1,price:0}];$('#client').value='';$('#quote').value='P-001';$('#discount').value=0;$('#tax').value=0;$('#date').value=new Date().toISOString().slice(0,10);drawItems();update()};drawItems();update();
+  </script>
+</body>
+</html>
+
